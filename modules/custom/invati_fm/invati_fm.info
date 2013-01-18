@@ -1,0 +1,5 @@
+name = Invati FeedMagnet
+description = Adds integration with the FeedMagnet API.
+core = 7.x
+configure = admin/config/invati/feedmagnet
+package = Invati Modules

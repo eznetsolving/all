@@ -1,0 +1,32 @@
+<?php
+
+/**
+ *@file
+ * This module has a custom functionality for Invati Phase 2 project.
+ * Provides API integration with the FeedMagnet service.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function invati_fm_menu() {
+  $items['admin/config/invati'] = array(
+    'title' => 'Invati',
+    'description' => 'Invati settings.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );  
+
+  $items['admin/config/invati/feedmagnet'] = array(
+    'title' => 'FeedMagneet',
+    'description' => 'Configure integration with FeedMagnet API services.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('invati_fm_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'invati_fm.pages.inc',
+  );
+  
+  return $items;
+}
