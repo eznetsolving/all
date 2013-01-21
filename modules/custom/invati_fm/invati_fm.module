@@ -25,8 +25,71 @@ function invati_fm_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('invati_fm_admin_form'),
     'access arguments' => array('administer site configuration'),
-    'file' => 'invati_fm.pages.inc',
+    'file' => 'invati_fm.admin.inc',
   );
   
   return $items;
+}
+
+/**
+*Implements hook_block_info().
+*/
+function invati_fm_block_info() {
+  $blocks = array();
+  
+  $blocks['community_newsfeed_pc'] = array(
+    'info' => t('Invati: Community Newsfeed PC'), 
+  );
+  
+  $blocks['community_newsfeed_mobile'] = array(
+    'info' => t('Invati: Community Newsfeed Mobile'), 
+  );
+  
+  $blocks['community_newsfeed_teaser_mobile'] = array(
+    'info' => t('Invati: Community Newsfeed Teaser Mobile'), 
+  );
+  
+  return $blocks;
+}
+
+/**
+ * Iplements hook_block_view().
+ */ 
+function invati_fm_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'community_newsfeed_pc':
+      $block['subject'] = t('Community Posts');
+      $block['content'] = theme('invati_fm_community_newsfeed_pc');
+      break;
+    case 'community_newsfeed_mobile':
+      $block['subject'] = t('Community Posts');
+      $block['content'] = theme('invati_fm_community_newsfeed_mobile');
+      break;
+    case 'community_newsfeed_teaser_mobile':
+      $block['subject'] = t('Community Posts');
+      $block['content'] = theme('invati_fm_community_newsfeed_teaser_mobile');
+      break;
+  } 
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */ 
+function invati_fm_theme() {
+  return array(
+    'invati_fm_community_newsfeed_pc' => array(
+      'file' => 'invati_fm.theme.inc',
+      'template' => 'invati-fm-community-newsfeed-pc',
+    ),
+    'invati_fm_community_newsfeed_mobile' => array(
+      'file' => 'invati_fm.theme.inc',
+      'template' => 'invati-fm-community-newsfeed-mobile',
+    ),
+    'invati_fm_community_newsfeed_teaser_mobile' => array(
+      'file' => 'invati_fm.theme.inc',
+      'template' => 'invati-fm-community-newsfeed-teaser-mobile',
+    ),
+  );
 }
